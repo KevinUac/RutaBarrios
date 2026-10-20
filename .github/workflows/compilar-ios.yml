@@ -1,0 +1,42 @@
+name: Compilar para Appetize
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Obtener el codigo
+        uses: actions/checkout@v4
+
+      - name: Mostrar version de Xcode
+        run: xcodebuild -version
+
+      - name: Compilar RutaBarrios para el simulador de iOS
+        run: |
+          xcodebuild \
+            -project RutaBarrios.xcodeproj \
+            -scheme RutaBarrios \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Comprimir RutaBarrios.app
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          ditto -c -k --sequesterRsrc --keepParent RutaBarrios.app "$GITHUB_WORKSPACE/RutaBarrios-Simulator.zip"
+
+      - name: Publicar el ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: RutaBarrios-Simulator
+          path: RutaBarrios-Simulator.zip
+          retention-days: 7
