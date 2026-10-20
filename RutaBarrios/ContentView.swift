@@ -26,15 +26,15 @@ struct ContentView: View {
 
     // Lugares predefinidos (coordenadas de las iglesias, tomadas de Google Maps)
     let barrios: [Barrio] = [
-        Barrio(nombre: "San Román",     latitud: 19.841611,  longitud: -90.5457774),
-        Barrio(nombre: "Guadalupe",     latitud: 19.8490853, longitud: -90.53225),
-        Barrio(nombre: "San Francisco", latitud: 19.85283,   longitud: -90.52557),
+        Barrio(nombre: "San Román",     latitud: 19.841546,  longitud: -90.544519),
+        Barrio(nombre: "Guadalupe",     latitud: 19.8490853, longitud: -90.530925),
+        Barrio(nombre: "San Francisco", latitud: 19.852807,  longitud: -90.524814),
         Barrio(nombre: "Santa Ana",     latitud: 19.839244,  longitud: -90.5261196),
         Barrio(nombre: "Santa Lucía",   latitud: 19.8475871, longitud: -90.5145629)
     ]
 
     // Paso 2: centro inicial del mapa (iglesia de San Román)
-    static let centroInicial = CLLocationCoordinate2D(latitude: 19.841611, longitude: -90.5457774)
+    static let centroInicial = CLLocationCoordinate2D(latitude: 19.841546, longitude: -90.544519)
 
     // Paso 3: zoom (0 = máximo acercamiento; 180/360 = planeta entero)
     static let zoomBarrio = MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)
